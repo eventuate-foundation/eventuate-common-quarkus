@@ -1,0 +1,6 @@
+include 'eventuate-common-quarkus-jdbc'
+include 'eventuate-common-quarkus-jdbc-test-configuration'
+include 'eventuate-common-quarkus-id'
+include 'eventuate-common-quarkus-in-memory-database'
+
+rootProject.name = 'eventuate-common-quarkus'

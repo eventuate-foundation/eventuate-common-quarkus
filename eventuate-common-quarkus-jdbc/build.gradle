@@ -1,0 +1,27 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+apply plugin: PublicModulePlugin
+
+dependencies {
+    compile "io.eventuate.common:eventuate-common-jdbc:$eventuateCommonVersion"
+
+    compile 'io.quarkus:quarkus-core'
+    compile 'io.quarkus.arc:arc'
+    compile 'io.quarkus:quarkus-arc-deployment'
+    compile 'io.quarkus:quarkus-agroal'
+
+    testCompile project (":eventuate-common-quarkus-id")
+    testCompile project (":eventuate-common-quarkus-jdbc-test-configuration")
+
+    testCompile "io.eventuate.common:eventuate-common-jdbc-tests:$eventuateCommonVersion"
+    testCompile 'io.quarkus:quarkus-junit5'
+
+    implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}

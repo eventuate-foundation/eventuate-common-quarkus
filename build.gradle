@@ -1,0 +1,98 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:$dockerComposePluginVersion"
+        classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-publish:$eventuatePluginsGradleVersion"
+    }
+}
+
+plugins {
+    id "com.github.hierynomus.license" version "0.12.1"
+}
+
+apply plugin: 'docker-compose'
+apply plugin: "io.eventuate.plugins.gradle.publish.EventuatePublish"
+
+allprojects {
+    group = "io.eventuate.common"
+}
+
+projects {
+
+    license {
+        header rootProject.file('src/license/HEADER')
+    }
+}
+
+subprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+    }
+
+    dependencies {
+        testCompile "junit:junit:4.12"
+    }
+}
+
+task aggregatedTestReport(type: TestReport) {
+  destinationDir = file("$buildDir/reports/allTests")
+  // Include the results from the 'test' task in all subprojects
+  reportOn subprojects*.test
+}
+
+gradle.projectsEvaluated {
+    task aggregateJavaDocs(type: Javadoc) {
+        description = 'Aggregates Javadoc API documentation of all subprojects.'
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        dependsOn subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc
+
+        source subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc.source
+        destinationDir file("$buildDir/docs/javadoc")
+        classpath = files(subprojects.findAll { subproject -> subproject.plugins.hasPlugin(PublicModulePlugin) }.javadoc.classpath)
+    }
+}
+
+dockerCompose {
+    removeOrphans = true
+
+    environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
+
+    mysql {
+        projectName = null
+        useComposeFiles = ["docker-compose-mysql.yml", "docker-compose-zookeeper.yml"]
+        removeContainers = project.ext.removeContainers
+    }
+
+    mysql8 {
+        projectName = null
+        useComposeFiles = ["docker-compose-mysql8.yml", "docker-compose-zookeeper.yml"]
+        removeContainers = project.ext.removeContainers
+    }
+
+    mariadb {
+        projectName = null
+        useComposeFiles = ["docker-compose-mariadb.yml", "docker-compose-zookeeper.yml"]
+        removeContainers = project.ext.removeContainers
+    }
+
+    postgres {
+        projectName = null
+        useComposeFiles = ["docker-compose-postgres.yml", "docker-compose-zookeeper.yml"]
+        removeContainers = project.ext.removeContainers
+    }
+
+    mssql {
+        projectName = null
+        useComposeFiles = ["docker-compose-mssql.yml", "docker-compose-zookeeper.yml"]
+        removeContainers = project.ext.removeContainers
+    }
+}
