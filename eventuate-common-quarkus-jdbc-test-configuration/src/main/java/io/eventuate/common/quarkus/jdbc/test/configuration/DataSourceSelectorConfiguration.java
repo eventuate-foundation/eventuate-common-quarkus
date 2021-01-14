@@ -1,4 +1,4 @@
-package io.eventuate.common.quarkus.jdbc;
+package io.eventuate.common.quarkus.jdbc.test.configuration;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
