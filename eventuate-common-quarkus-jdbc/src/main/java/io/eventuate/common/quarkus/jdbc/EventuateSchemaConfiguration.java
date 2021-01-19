@@ -3,13 +3,12 @@ package io.eventuate.common.quarkus.jdbc;
 import io.eventuate.common.jdbc.EventuateSchema;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import java.util.Optional;
 
-@ApplicationScoped
+@Singleton
 public class EventuateSchemaConfiguration {
-  @Produces
+  @Singleton
   public EventuateSchema eventuateSchema(@ConfigProperty(name = "eventuate.database.schema") Optional<String> eventuateDatabaseSchema) {
     return new EventuateSchema(eventuateDatabaseSchema.orElse(null));
   }

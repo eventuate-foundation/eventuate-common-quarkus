@@ -1,17 +1,16 @@
 package io.eventuate.common.quarkus.id;
 
 import io.eventuate.common.id.ApplicationIdGenerator;
-import io.eventuate.common.id.IdGenerator;
 import io.eventuate.common.id.DatabaseIdGenerator;
+import io.eventuate.common.id.IdGenerator;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import java.util.Optional;
 
-@ApplicationScoped
+@Singleton
 public class IdGeneratorConfiguration {
-  @Produces
+  @Singleton
   public IdGenerator idGenerator(@ConfigProperty(name = "eventuate.outbox.id") Optional<Long> id) {
     return id
             .map(DatabaseIdGenerator::new)

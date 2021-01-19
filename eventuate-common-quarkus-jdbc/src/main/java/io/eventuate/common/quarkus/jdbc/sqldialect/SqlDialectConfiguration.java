@@ -8,37 +8,36 @@ import io.eventuate.common.jdbc.sqldialect.PostgresDialect;
 import io.eventuate.common.jdbc.sqldialect.SqlDialectSelector;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@Singleton
 public class SqlDialectConfiguration {
 
-  @Produces
+  @Singleton
   public MySqlDialect mySqlDialect() {
     return new MySqlDialect();
   }
 
-  @Produces
+  @Singleton
   public PostgresDialect postgreSQLDialect() {
     return new PostgresDialect();
   }
 
-  @Produces
+  @Singleton
   public MsSqlDialect msSqlDialect() {
     return new MsSqlDialect();
   }
 
-  @Produces
+  @Singleton
   public DefaultEventuateSqlDialect defaultSqlDialect(@ConfigProperty(name = "eventuate.current.time.in.milliseconds.sql")
                                                               Optional<String> customCurrentTimeInMillisecondsExpression) {
     return new DefaultEventuateSqlDialect(customCurrentTimeInMillisecondsExpression.orElse(null));
   }
 
-  @Produces
+  @Singleton
   public SqlDialectSelector sqlDialectSelector(Instance<EventuateSqlDialect> dialects) {
     return new SqlDialectSelector(dialects.stream().collect(Collectors.toList()));
   }
