@@ -1,10 +1,10 @@
 package io.eventuate.common.quarkus.jdbc;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import java.util.function.Supplier;
 
-@ApplicationScoped
+@Singleton
 public class EventuateQuarkusTransactionTemplate {
 
   @Transactional

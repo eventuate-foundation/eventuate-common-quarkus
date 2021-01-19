@@ -3,19 +3,18 @@ package io.eventuate.common.quarkus.jdbc.test.configuration;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.sql.DataSource;
 
-@ApplicationScoped
+@Singleton
 @Alternative
 @Priority(1)
 public class DataSourceSelectorConfiguration {
 
-  @Produces
+  @Singleton
   public DataSource defaultDatasource(@ConfigProperty(name = "eventuateDatabase") String db,
                                       @Named("mysql") Instance<DataSource> mysql,
                                       @Named("postgres") Instance<DataSource> postgres,

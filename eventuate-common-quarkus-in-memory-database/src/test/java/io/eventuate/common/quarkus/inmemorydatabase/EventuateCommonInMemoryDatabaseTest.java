@@ -4,7 +4,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
@@ -12,10 +11,10 @@ import javax.sql.DataSource;
 public class EventuateCommonInMemoryDatabaseTest {
 
   @Inject
-  Instance<DataSource> dataSource;
+  DataSource dataSource;
 
   @Test
   public void testThatInMemoryDataSourceIsUsed() {
-    Assertions.assertTrue(dataSource.get().getClass().getName().contains("EmbeddedDataSource"));
+    Assertions.assertTrue(dataSource.getClass().getName().contains("EmbeddedDataSource"));
   }
 }
