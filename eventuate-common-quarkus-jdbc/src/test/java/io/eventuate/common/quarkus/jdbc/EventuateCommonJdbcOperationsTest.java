@@ -6,7 +6,9 @@ import io.eventuate.common.jdbc.EventuateDuplicateKeyException;
 import io.eventuate.common.jdbc.EventuateJdbcStatementExecutor;
 import io.eventuate.common.jdbc.EventuateTransactionTemplate;
 import io.eventuate.common.jdbc.tests.AbstractEventuateCommonJdbcOperationsTest;
+import io.eventuate.common.quarkus.jdbc.test.configuration.TestProfileResolver;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @QuarkusTest
+@TestProfile(TestProfileResolver.class)
 public class EventuateCommonJdbcOperationsTest extends AbstractEventuateCommonJdbcOperationsTest {
   @Inject
   EventuateCommonJdbcOperations eventuateCommonJdbcOperations;

@@ -13,6 +13,7 @@ dependencies {
     compile "io.quarkus:quarkus-jdbc-mysql"
     compile "io.quarkus:quarkus-jdbc-postgresql"
     compile "io.quarkus:quarkus-jdbc-mssql"
+    compile 'io.quarkus:quarkus-junit5'
 
     implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }
