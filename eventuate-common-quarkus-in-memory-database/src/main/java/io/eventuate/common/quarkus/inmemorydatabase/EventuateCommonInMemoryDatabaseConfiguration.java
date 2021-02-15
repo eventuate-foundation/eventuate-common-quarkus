@@ -1,21 +1,30 @@
 package io.eventuate.common.quarkus.inmemorydatabase;
 
 import io.eventuate.common.inmemorydatabase.EventuateDatabaseScriptSupplier;
-import io.eventuate.common.inmemorydatabase.EventuateInMemoryDataSourceBuilder;
+import io.eventuate.common.jdbc.EventuateJdbcStatementExecutor;
+import io.eventuate.common.jdbc.EventuateTransactionTemplate;
+import io.quarkus.runtime.Startup;
 
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
-import java.util.stream.Collectors;
 
+@Startup
 @Singleton
-@Alternative
-@Priority(0)
 public class EventuateCommonInMemoryDatabaseConfiguration {
-  @Singleton
-  public DataSource dataSource(Instance<EventuateDatabaseScriptSupplier> scripts) {
-    return new EventuateInMemoryDataSourceBuilder(scripts.stream().collect(Collectors.toList())).build();
+
+  @Inject
+  Instance<EventuateDatabaseScriptSupplier> scripts;
+
+  @Inject
+  EventuateJdbcStatementExecutor eventuateJdbcStatementExecutor;
+
+  @Inject
+  EventuateTransactionTemplate eventuateTransactionTemplate;
+
+  @PostConstruct
+  public void dataSource() {
+    new EmbeddedDatabaseBuilder(scripts.stream(), eventuateJdbcStatementExecutor, eventuateTransactionTemplate).build();
   }
 }
