@@ -2,9 +2,11 @@ package io.eventuate.common.quarkus.jdbc;
 
 import io.eventuate.common.jdbc.EventuateCommonJdbcOperations;
 import io.eventuate.common.jdbc.EventuateCommonJdbcStatementExecutor;
+import io.eventuate.common.jdbc.EventuateJdbcOperationsUtils;
 import io.eventuate.common.jdbc.EventuateJdbcStatementExecutor;
 import io.eventuate.common.jdbc.EventuateSqlException;
 import io.eventuate.common.jdbc.EventuateTransactionTemplate;
+import io.eventuate.common.jdbc.sqldialect.EventuateSqlDialect;
 import io.eventuate.common.jdbc.sqldialect.SqlDialectSelector;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -21,7 +23,10 @@ public class EventuateCommonJdbcOperationsConfiguration {
   public EventuateCommonJdbcOperations eventuateCommonJdbcOperations(EventuateJdbcStatementExecutor eventuateJdbcStatementExecutor,
                                                                      SqlDialectSelector sqlDialectSelector,
                                                                      @ConfigProperty(name = "eventuateDatabase") String dbName) {
-    return new EventuateCommonJdbcOperations(eventuateJdbcStatementExecutor, sqlDialectSelector.getDialect(dbName, Optional.empty()));
+
+    EventuateSqlDialect eventuateSqlDialect = sqlDialectSelector.getDialect(dbName, Optional.empty());
+
+    return new EventuateCommonJdbcOperations(new EventuateJdbcOperationsUtils(eventuateSqlDialect), eventuateJdbcStatementExecutor, eventuateSqlDialect);
   }
 
   @Singleton
