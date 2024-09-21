@@ -20,7 +20,7 @@ dependencies {
     testImplementation "io.eventuate.common:eventuate-common-jdbc-tests:$eventuateCommonVersion"
     testImplementation 'io.quarkus:quarkus-junit5'
 
-    implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+    implementation platform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }
 
 test {

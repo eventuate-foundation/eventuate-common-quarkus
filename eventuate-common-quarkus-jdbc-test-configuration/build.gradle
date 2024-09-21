@@ -14,5 +14,5 @@ dependencies {
     api "io.quarkus:quarkus-jdbc-mssql"
     api 'io.quarkus:quarkus-junit5'
 
-    implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+    implementation platform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }
