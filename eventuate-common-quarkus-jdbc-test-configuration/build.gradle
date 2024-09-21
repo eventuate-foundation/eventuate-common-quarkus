@@ -5,14 +5,14 @@ plugins {
 
 
 dependencies {
-    compile 'io.quarkus:quarkus-core'
-    compile 'io.quarkus.arc:arc'
-    compile 'io.quarkus:quarkus-arc-deployment'
-    compile 'io.quarkus:quarkus-agroal'
-    compile "io.quarkus:quarkus-jdbc-mysql"
-    compile "io.quarkus:quarkus-jdbc-postgresql"
-    compile "io.quarkus:quarkus-jdbc-mssql"
-    compile 'io.quarkus:quarkus-junit5'
+    api 'io.quarkus:quarkus-core'
+    api 'io.quarkus.arc:arc'
+    api 'io.quarkus:quarkus-arc-deployment'
+    api 'io.quarkus:quarkus-agroal'
+    api "io.quarkus:quarkus-jdbc-mysql"
+    api "io.quarkus:quarkus-jdbc-postgresql"
+    api "io.quarkus:quarkus-jdbc-mssql"
+    api 'io.quarkus:quarkus-junit5'
 
     implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }

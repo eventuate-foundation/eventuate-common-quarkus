@@ -5,13 +5,13 @@ plugins {
 
 
 dependencies {
-    compile "io.eventuate.common:eventuate-common-id:$eventuateCommonVersion"
+    api "io.eventuate.common:eventuate-common-id:$eventuateCommonVersion"
 
-    compile 'io.quarkus:quarkus-core'
-    compile 'io.quarkus.arc:arc'
-    compile 'io.quarkus:quarkus-arc-deployment'
+    api 'io.quarkus:quarkus-core'
+    api 'io.quarkus.arc:arc'
+    api 'io.quarkus:quarkus-arc-deployment'
 
-    testCompile 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5'
 
     implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }

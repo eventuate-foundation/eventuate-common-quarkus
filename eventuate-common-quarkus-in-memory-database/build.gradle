@@ -5,18 +5,18 @@ plugins {
 
 
 dependencies {
-    compile "io.eventuate.common:eventuate-common-in-memory-database:$eventuateCommonVersion"
+    api "io.eventuate.common:eventuate-common-in-memory-database:$eventuateCommonVersion"
 
-    compile project (":eventuate-common-quarkus-jdbc")
+    api project (":eventuate-common-quarkus-jdbc")
 
 
-    compile 'io.quarkus:quarkus-core'
-    compile 'io.quarkus.arc:arc'
-    compile 'io.quarkus:quarkus-arc-deployment'
-    compile 'io.quarkus:quarkus-jdbc-h2'
-    compile 'io.quarkus:quarkus-agroal'
+    api 'io.quarkus:quarkus-core'
+    api 'io.quarkus.arc:arc'
+    api 'io.quarkus:quarkus-arc-deployment'
+    api 'io.quarkus:quarkus-jdbc-h2'
+    api 'io.quarkus:quarkus-agroal'
 
-    testCompile 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5'
 
     implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }

@@ -1,4 +1,3 @@
-version: '3'
 services:
   mssql:
     image: eventuateio/eventuate-mssql:$EVENTUATE_COMMON_VERSION

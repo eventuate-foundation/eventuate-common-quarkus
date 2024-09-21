@@ -7,18 +7,18 @@ plugins {
 
 
 dependencies {
-    compile "io.eventuate.common:eventuate-common-jdbc:$eventuateCommonVersion"
+    api "io.eventuate.common:eventuate-common-jdbc:$eventuateCommonVersion"
 
-    compile 'io.quarkus:quarkus-core'
-    compile 'io.quarkus.arc:arc'
-    compile 'io.quarkus:quarkus-arc-deployment'
-    compile 'io.quarkus:quarkus-agroal'
+    api 'io.quarkus:quarkus-core'
+    api 'io.quarkus.arc:arc'
+    api 'io.quarkus:quarkus-arc-deployment'
+    api 'io.quarkus:quarkus-agroal'
 
-    testCompile project (":eventuate-common-quarkus-id")
-    testCompile project (":eventuate-common-quarkus-jdbc-test-configuration")
+    testImplementation project (":eventuate-common-quarkus-id")
+    testImplementation project (":eventuate-common-quarkus-jdbc-test-configuration")
 
-    testCompile "io.eventuate.common:eventuate-common-jdbc-tests:$eventuateCommonVersion"
-    testCompile 'io.quarkus:quarkus-junit5'
+    testImplementation "io.eventuate.common:eventuate-common-jdbc-tests:$eventuateCommonVersion"
+    testImplementation 'io.quarkus:quarkus-junit5'
 
     implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
 }
