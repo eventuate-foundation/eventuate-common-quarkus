@@ -61,21 +61,9 @@ dockerCompose {
 
     environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
 
-    mysql {
-        projectName = null
-        useComposeFiles = ["docker-compose-mysql.yml", "docker-compose-zookeeper.yml"]
-        removeContainers = Boolean.valueOf(project.ext.removeContainers)
-    }
-
     mysql8 {
         projectName = null
         useComposeFiles = ["docker-compose-mysql8.yml", "docker-compose-zookeeper.yml"]
-        removeContainers = Boolean.valueOf(project.ext.removeContainers)
-    }
-
-    mariadb {
-        projectName = null
-        useComposeFiles = ["docker-compose-mariadb.yml", "docker-compose-zookeeper.yml"]
         removeContainers = Boolean.valueOf(project.ext.removeContainers)
     }
 
